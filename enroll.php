@@ -1,4 +1,5 @@
 <?php
+
 function getProfile($userId, $arrayHeader){
     $strUrl = "https://api.line.me/v2/bot/profile/". $userId;
     $ch = curl_init();
@@ -55,15 +56,24 @@ $arrayHeader[] = "Content-Type: application/json";
 $arrayHeader[] = "Authorization: Bearer {$accessToken}";
 
 $profile = json_decode(getProfile($_GET['code'], $arrayHeader));
+
 ?>
 <div>
-<?php echo $profile->displayName; ?>
+<img src="<?php echo $profile->pictureUrl; ?>" style="width:180px;">
+</div>
+
+<div>
+Display name: <?php echo $profile->displayName; ?>
 </div>
 <div>
-<img src="<?php echo $profile->pictureUrl; ?>" width="180"/>
+Full name: ................
+</div>
+
+<div>
+Email: .................
 </div>
 <?php
-print_r($profile);
-echo "<hr>";
-echo $accessToken;
+//print_r($profile);
+//echo "<hr>";
+//echo $accessToken;
 ?>
