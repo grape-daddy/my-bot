@@ -23,8 +23,8 @@ header('Content-Type: text/html; charset=utf-8');
             if ($regname == "") {
                 $text = 'กรุณาระบุชื่อด้วยครับ /groupadd [ชื่อ]';
             } else {
-                //$text = $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". $regname ."|".$arrayJson['events'][0]['source']['type'];
-                $text = "https://mybot-line.herokuapp.com/enroll.php?code=".$arrayJson['events'][0]['source']['groupId'];
+                $text = $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". $regname ."|".$arrayJson['events'][0]['source']['type'];
+                //$text = "https://mybot-line.herokuapp.com/enroll.php?code=".$arrayJson['events'][0]['source']['groupId'];
             }
             
             if(!$fp = fopen("files/registered.txt", "a+"))
@@ -153,4 +153,4 @@ header('Content-Type: text/html; charset=utf-8');
         return $data->access_token;
     }
 ?>
-OK.
+OK
