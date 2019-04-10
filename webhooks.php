@@ -32,45 +32,16 @@
         if(!$found)
         {
             $content = "Push ID|Name\n";
-            $content .= $arrayJson['events'][0]['source']['userId']."|". str_replace($ln[0]." ", "", $message)."\n";
+            $content .= $arrayJson['events'][0]['source']['groupid']."|". str_replace($ln[0]." ", "", $message)."\n";
         
             fwrite($fp, $content);
             fclose($fp);
         }
 
-        $text = $arrayJson['events'][0]['source']['userId']."|". str_replace($ln[0]." ", "", $message);
+        $text = $arrayJson['events'][0]['source']['groupid']."|". str_replace($ln[0]." ", "", $message);
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "text";
         $arrayPostData['messages'][0]['text'] = $text;
-
-
-        $lines = file('registred.txt');
-        // Store true when the text is found
-        $found = false;
-        foreach($lines as $line)
-        {
-          if(strpos($line, $arrayJson['events'][0]['source']['userId']) !== false)
-          {
-            $found = true;
-            include "header.php";
-            ?>
-            <div class="container">
-            <?php echo 'Existing!<br>'.$line."<br><br>"; ?>
-            </div>
-            <?php
-            include "footer.php";
-            die();
-          }
-        }
-        // If the text was not found, show a message
-        if(!$found)
-        {
-            $content = "Push ID|User ID|Employee ID|User Name|addwhen\n";
-            $content .= $_GET['uid']."|". $login_info['userid']."|".$login_info['employeeid']."|".iconv("windows-874", "utf-8", $login_info['username'])."|".date("Y-m-d H:i:s")."\n";
-        
-            fwrite($fp, $content);
-            fclose($fp);
-        }
         
         replyMsg($arrayHeader,$arrayPostData);
     }
@@ -121,4 +92,4 @@
         return $data->access_token;
     }
 ?>
-OK2
+OK
