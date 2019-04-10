@@ -60,7 +60,7 @@ $profile = json_decode(getProfile($_GET['code'], $arrayHeader));
 <?php echo $profile->displayName; ?>
 </div>
 <div>
-<img src="<?php echo $profile->pictureUrl; ?>" style="width:180px;">
+<img src="<?php echo $profile->pictureUrl; ?>" width="180"/>
 </div>
 <?php
 print_r($profile);
