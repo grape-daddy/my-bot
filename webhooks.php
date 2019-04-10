@@ -7,7 +7,7 @@
     $arrayJson = json_decode($content, true);
     
     $arrayHeader = array();
-    $arrayHeader[] = "Content-Type: application/json";
+    $arrayHeader[] = "Content-Type: application/json; charset=UTF-8";
     $arrayHeader[] = "Authorization: Bearer {$accessToken}";
 
     //รับข้อความจากผู้ใช้
@@ -33,9 +33,9 @@
         if(!$found)
         {
             //$content = "Group ID|User ID|Name|Type\n";
-            $content .= $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type']."\n";
+            $fcontent .= $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type']."\n";
         
-            fwrite($fp, $content);
+            fwrite($fp, $fcontent);
             fclose($fp);
         }
 
@@ -98,4 +98,4 @@
         return $data->access_token;
     }
 ?>
-OK2
+OK
