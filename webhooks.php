@@ -15,7 +15,7 @@ header('Content-Type: text/html; charset=utf-8');
     //รับข้อความจากผู้ใช้
     $message = $arrayJson['events'][0]['message']['text'];
     if(preg_match("/^\/groupadd/", $message)){
-
+        $ln = explode(" ", $message);
         if ($arrayJson['events'][0]['source']['type'] != 'group') {
             $text = "คำสั่งสำหรับ Group เท่านั้น";
         } else {
@@ -25,8 +25,6 @@ header('Content-Type: text/html; charset=utf-8');
             } else {
                 $text = $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". $regname ."|".$arrayJson['events'][0]['source']['type'];
             }
-            
-            $ln = explode(" ", $message);
             
             if(!$fp = fopen("files/registered.txt", "a+"))
             {
@@ -63,7 +61,7 @@ header('Content-Type: text/html; charset=utf-8');
     }
 
     if(preg_match("/^\/botadd/", $message)){
-
+        $ln = explode(" ", $message);
         if ($arrayJson['events'][0]['source']['type'] != 'user') {
             $text = "คำสั่งสำหรับบุคคลเท่านั้น";
         } else {
@@ -73,7 +71,7 @@ header('Content-Type: text/html; charset=utf-8');
             } else {
                 $text = $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type'];
             }
-            $ln = explode(" ", $message);
+            
             if(!$fp = fopen("files/registered.txt", "a+"))
             {
                 die("Create file fail");
@@ -153,4 +151,4 @@ header('Content-Type: text/html; charset=utf-8');
         return $data->access_token;
     }
 ?>
-OK!
+OK.
