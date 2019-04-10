@@ -39,7 +39,7 @@
             fclose($fp);
         }
 
-        $text = $arrayJson['events'][0]['source']['groupid']."|". str_replace($ln[0]." ", "", $message);
+        $text = $arrayJson['events'][0]['source']['groupid']."|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type'];
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "text";
         $arrayPostData['messages'][0]['text'] = $text;
@@ -93,4 +93,4 @@
         return $data->access_token;
     }
 ?>
-OK
+OK2
