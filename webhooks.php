@@ -23,7 +23,7 @@
         $found = false;
         foreach($lines as $line)
         {
-          if(strpos($line, $arrayJson['events'][0]['source']['groupid']) !== false)
+          if(strpos($line, $arrayJson['events'][0]['source']['groupId']) !== false)
           {
             $found = true;
           }
@@ -33,13 +33,13 @@
         if(!$found)
         {
             $content = "Push ID|Name\n";
-            $content .= $arrayJson['events'][0]['source']['groupid']."|". str_replace($ln[0]." ", "", $message)."\n";
+            $content .= $arrayJson['events'][0]['source']['groupId']."|". str_replace($ln[0]." ", "", $message)."\n";
         
             fwrite($fp, $content);
             fclose($fp);
         }
 
-        $text = $arrayJson['events'][0]['source']['groupid']."|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type'];
+        $text = $arrayJson['events'][0]['source']['groupId']."|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type'];
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "text";
         $arrayPostData['messages'][0]['text'] = $text;
@@ -93,4 +93,4 @@
         return $data->access_token;
     }
 ?>
-OK2
+OK
