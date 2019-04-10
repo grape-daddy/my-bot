@@ -7,7 +7,7 @@
     $arrayJson = json_decode($content, true);
     
     $arrayHeader = array();
-    $arrayHeader[] = "Content-Type: application/json";
+    $arrayHeader[] = "Content-Type: application/json; charset=UTF-8";
     $arrayHeader[] = "Authorization: Bearer {$accessToken}";
 
     //รับข้อความจากผู้ใช้
@@ -98,4 +98,4 @@
         return $data->access_token;
     }
 ?>
-OK
+OK2
