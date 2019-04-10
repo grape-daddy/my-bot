@@ -13,6 +13,7 @@
     //รับข้อความจากผู้ใช้
     $message = $arrayJson['events'][0]['message']['text'];
     if(preg_match("/^\/groupadd/", $message)){
+        $ln = explode(" ", $message);
         if(!$fp = fopen("registred.txt", "a+"))
         {
             die("Create file fail");
