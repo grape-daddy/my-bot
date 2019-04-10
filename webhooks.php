@@ -1,4 +1,6 @@
 <?php
+//header("Content-type: application/json; charset=utf-8");
+header('Content-Type: text/html; charset=utf-8');
     $client_id = '1563228754';
     $client_secret = '94bd50a658cfc05dae429bcc2bec01c9';
     //$accessToken = 'RaZjxS9f4bo3lkA1YDyddtjyWZMPlEBw6GewIKOmVyWgfr2WDGQVU35LlFtnZyTsE8A0qSdtGaFStdQJHauat42zT5o1K+Fz9BVNDOESZLfO9fi3gOHXZG46NAf4yW0BsVc8As60NfNrpI9YpqIU1QdB04t89/1O/w1cDnyilFU=';
@@ -32,7 +34,7 @@
         // If the text was not found, show a message
         if(!$found)
         {
-            //$content = "Group ID|User ID|Name|Type\n";
+            //$fcontent = "Group ID|User ID|Name|Type\n";
             $fcontent .= $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type']."\n";
         
             fwrite($fp, $fcontent);
@@ -98,4 +100,4 @@
         return $data->access_token;
     }
 ?>
-OK
+OK2
