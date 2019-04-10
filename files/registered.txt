@@ -1,3 +1,1 @@
 Group ID|User ID|Name|Type
-Ue02282be45e608fe97e1782252c213e4|Ue02282be45e608fe97e1782252c213e4|ป้อม|user
-Cdbbae7556e22a5fc2b97bd3fef4c6ae9|Ue02282be45e608fe97e1782252c213e4|ทดสอบ|group
