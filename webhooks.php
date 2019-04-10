@@ -15,36 +15,77 @@ header('Content-Type: text/html; charset=utf-8');
     //รับข้อความจากผู้ใช้
     $message = $arrayJson['events'][0]['message']['text'];
     if(preg_match("/^\/groupadd/", $message)){
-        $ln = explode(" ", $message);
-        if(!$fp = fopen("files/registered.txt", "a+"))
-        {
-            die("Create file fail");
-        }
-
-        $lines = file('files/registered.txt');
-        $found = false;
-        foreach($lines as $line)
-        {
-          if(strpos($line, $arrayJson['events'][0]['source']['groupId']) !== false)
-          {
-            $found = true;
-          }
-        }
-
-        // If the text was not found, show a message
-        if(!$found)
-        {
-            //$fcontent = "Group ID|User ID|Name|Type\n";
-            $fcontent .= $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type']."\n";
-        
-            fwrite($fp, $fcontent);
-            fclose($fp);
-        }
 
         if ($arrayJson['events'][0]['source']['type'] != 'group') {
             $text = "คำสั่งสำหรับ Group เท่านั้น";
         } else {
             $text = $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type'];
+            $ln = explode(" ", $message);
+            
+            if(!$fp = fopen("files/registered.txt", "a+"))
+            {
+                die("Create file fail");
+            }
+
+            $lines = file('files/registered.txt');
+            $found = false;
+            foreach($lines as $line)
+            {
+            if(strpos($line, $arrayJson['events'][0]['source']['groupId']) !== false)
+            {
+                $found = true;
+            }
+            }
+
+            // If the text was not found, show a message
+            if(!$found)
+            {
+                //$fcontent = "Group ID|User ID|Name|Type\n";
+                $fcontent .= $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type']."\n";
+            
+                fwrite($fp, $fcontent);
+                fclose($fp);
+            }
+        }
+        
+        $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
+        $arrayPostData['messages'][0]['type'] = "text";
+        $arrayPostData['messages'][0]['text'] = $text;
+        
+        replyMsg($arrayHeader,$arrayPostData);
+    }
+
+    if(preg_match("/^\/botadd/", $message)){
+
+        if ($arrayJson['events'][0]['source']['type'] != 'user') {
+            $text = "คำสั่งสำหรับบุคคลเท่านั้น";
+        } else {
+            $text = $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type'];
+            $ln = explode(" ", $message);
+            if(!$fp = fopen("files/registered.txt", "a+"))
+            {
+                die("Create file fail");
+            }
+
+            $lines = file('files/registered.txt');
+            $found = false;
+            foreach($lines as $line)
+            {
+            if(strpos($line, $arrayJson['events'][0]['source']['userId']) !== false)
+            {
+                $found = true;
+            }
+            }
+
+            // If the text was not found, show a message
+            if(!$found)
+            {
+                //$fcontent = "Group ID|User ID|Name|Type\n";
+                $fcontent .= $arrayJson['events'][0]['source']['userId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type']."\n";
+            
+                fwrite($fp, $fcontent);
+                fclose($fp);
+            }
         }
         
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
@@ -100,4 +141,4 @@ header('Content-Type: text/html; charset=utf-8');
         return $data->access_token;
     }
 ?>
-OK
+OK/
