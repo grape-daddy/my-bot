@@ -32,14 +32,19 @@
         // If the text was not found, show a message
         if(!$found)
         {
-            $content = "Push ID|Name\n";
-            $content .= $arrayJson['events'][0]['source']['groupId']."|". str_replace($ln[0]." ", "", $message)."\n";
+            $content = "Group ID|User ID|Name|Type\n";
+            $content .= $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type']."\n";
         
             fwrite($fp, $content);
             fclose($fp);
         }
 
-        $text = $arrayJson['events'][0]['source']['groupId']."|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type'];
+        if ($arrayJson['events'][0]['source']['type'] != 'group') {
+            $text = "คำสั่งสำหรับ Group เท่านั้น";
+        } else {
+            $text = $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type'];
+        }
+        
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "text";
         $arrayPostData['messages'][0]['text'] = $text;
@@ -93,4 +98,4 @@
         return $data->access_token;
     }
 ?>
-OK
+OK2
