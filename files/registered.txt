@@ -1,1 +1,1 @@
-
+Group ID|User ID|Name|Type
