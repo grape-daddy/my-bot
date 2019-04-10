@@ -1,6 +1,4 @@
 <?php
-$client_id = '1563228754';
-$client_secret = '94bd50a658cfc05dae429bcc2bec01c9';
 
 function pushMsg($arrayHeader,$arrayPostData){
     $strUrl = "https://api.line.me/v2/bot/message/push";
@@ -49,6 +47,9 @@ function accessToken($client_id, $client_secret) {
     return $data->access_token;
 }
 
+$client_id = '1563228754';
+$client_secret = '94bd50a658cfc05dae429bcc2bec01c9';
+
 if ($_POST['type'] == "push") {
     //$accessToken = 'RaZjxS9f4bo3lkA1YDyddtjyWZMPlEBw6GewIKOmVyWgfr2WDGQVU35LlFtnZyTsE8A0qSdtGaFStdQJHauat42zT5o1K+Fz9BVNDOESZLfO9fi3gOHXZG46NAf4yW0BsVc8As60NfNrpI9YpqIU1QdB04t89/1O/w1cDnyilFU=';
     $accessToken = accessToken($client_id, $client_secret);
@@ -88,7 +89,7 @@ if ($_POST['type'] == "push") {
                 $ln = explode("|", $line);
                 if ($ln[0] != "Group ID" && $ln[0] != "\n") {
                     ?>
-                    <option value="<?php echo $ln[0]; ?>"><?php echo $ln[2]; ?></option>
+                    <option value="<?php echo $ln[0]; ?>"><?php echo $ln[3]; ?>:<?php echo $ln[2]; ?></option>
                     <?php
                 }
             }
