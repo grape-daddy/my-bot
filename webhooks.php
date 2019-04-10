@@ -11,7 +11,7 @@
     $arrayHeader[] = "Authorization: Bearer {$accessToken}";
 
     //รับข้อความจากผู้ใช้
-    $message = iconv("windows-874", "utf-8", $arrayJson['events'][0]['message']['text']);
+    $message = $arrayJson['events'][0]['message']['text'];
     if(preg_match("/^\/groupadd/", $message)){
         $ln = explode(" ", $message);
         if(!$fp = fopen("files/registered.txt", "a+"))
@@ -33,7 +33,7 @@
         if(!$found)
         {
             $content = "Group ID|User ID|Name|Type\n";
-            $content .= $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type']."\n";
+            $content .= $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". iconv("windows-874", "utf-8", str_replace($ln[0]." ", "", $message))."|".$arrayJson['events'][0]['source']['type']."\n";
         
             fwrite($fp, $content);
             fclose($fp);
@@ -98,4 +98,4 @@
         return $data->access_token;
     }
 ?>
-OK
+OK2
