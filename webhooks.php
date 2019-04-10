@@ -14,12 +14,12 @@
     $message = $arrayJson['events'][0]['message']['text'];
     if(preg_match("/^\/groupadd/", $message)){
         $ln = explode(" ", $message);
-        if(!$fp = fopen("registred.txt", "a+"))
+        if(!$fp = fopen("files/registered.txt", "a+"))
         {
             die("Create file fail");
         }
 
-        $lines = file('registred.txt');
+        $lines = file('files/registered.txt');
         $found = false;
         foreach($lines as $line)
         {
@@ -98,4 +98,4 @@
         return $data->access_token;
     }
 ?>
-OK2
+OK
