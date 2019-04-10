@@ -19,7 +19,13 @@ header('Content-Type: text/html; charset=utf-8');
         if ($arrayJson['events'][0]['source']['type'] != 'group') {
             $text = "คำสั่งสำหรับ Group เท่านั้น";
         } else {
-            $text = $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type'];
+            $regname = str_replace($ln[0]." ", "", $message);
+            if ($regname == "") {
+                $text = 'กรุณาระบุชื่อด้วยครับ /groupadd [ชื่อ]';
+            } else {
+                $text = $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". $regname ."|".$arrayJson['events'][0]['source']['type'];
+            }
+            
             $ln = explode(" ", $message);
             
             if(!$fp = fopen("files/registered.txt", "a+"))
@@ -38,14 +44,15 @@ header('Content-Type: text/html; charset=utf-8');
             }
 
             // If the text was not found, show a message
-            if(!$found)
+            if(!$found && $regname != "")
             {
                 //$fcontent = "Group ID|User ID|Name|Type\n";
                 $fcontent .= $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type']."\n";
             
                 fwrite($fp, $fcontent);
-                fclose($fp);
+                
             }
+            fclose($fp);
         }
         
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
@@ -60,7 +67,12 @@ header('Content-Type: text/html; charset=utf-8');
         if ($arrayJson['events'][0]['source']['type'] != 'user') {
             $text = "คำสั่งสำหรับบุคคลเท่านั้น";
         } else {
-            $text = $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type'];
+            $regname = str_replace($ln[0]." ", "", $message);
+            if ($regname == "") {
+                $text = 'กรุณาระบุชื่อด้วยครับ /botadd [ชื่อ]';
+            } else {
+                $text = $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type'];
+            }
             $ln = explode(" ", $message);
             if(!$fp = fopen("files/registered.txt", "a+"))
             {
@@ -78,14 +90,14 @@ header('Content-Type: text/html; charset=utf-8');
             }
 
             // If the text was not found, show a message
-            if(!$found)
+            if(!$found && $regname != "")
             {
                 //$fcontent = "Group ID|User ID|Name|Type\n";
                 $fcontent .= $arrayJson['events'][0]['source']['userId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type']."\n";
             
                 fwrite($fp, $fcontent);
-                fclose($fp);
             }
+            fclose($fp);
         }
         
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
@@ -141,4 +153,4 @@ header('Content-Type: text/html; charset=utf-8');
         return $data->access_token;
     }
 ?>
-OK/
+OK!
