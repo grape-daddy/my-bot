@@ -74,8 +74,15 @@ $arrayHeader = array();
 $arrayHeader[] = "Content-Type: application/json";
 $arrayHeader[] = "Authorization: Bearer {$accessToken}";
 
-$profile = getProfile($_GET['code'], $arrayHeader);
-
+$profile = json_decode(getProfile($_GET['code'], $arrayHeader));
+?>
+<div>
+<?php echo $profile->displayName; ?>
+</div>
+<div>
+<img src="<?php echo $profile->pictureUrl; ?>">
+</div>
+<?php
 print_r($profile);
 echo "<hr>";
 echo $accessToken;
