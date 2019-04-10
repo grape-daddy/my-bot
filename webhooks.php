@@ -32,8 +32,8 @@
         // If the text was not found, show a message
         if(!$found)
         {
-            $content = "Group ID|User ID|Name|Type\n";
-            $content .= $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". iconv("windows-874", "utf-8", str_replace($ln[0]." ", "", $message))."|".$arrayJson['events'][0]['source']['type']."\n";
+            //$content = "Group ID|User ID|Name|Type\n";
+            $content .= $arrayJson['events'][0]['source']['groupId']."|". $arrayJson['events'][0]['source']['userId']. "|". str_replace($ln[0]." ", "", $message)."|".$arrayJson['events'][0]['source']['type']."\n";
         
             fwrite($fp, $content);
             fclose($fp);
@@ -98,4 +98,4 @@
         return $data->access_token;
     }
 ?>
-OK2
+OK
