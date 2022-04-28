@@ -73,7 +73,7 @@ Full name: ................
 Email: .................
 </div>
 <?php
-//print_r($profile);
+print_r($profile);
 //echo "<hr>";
 //echo $accessToken;
 ?>
