@@ -75,5 +75,5 @@ Email: .................
 <?php
 print_r($profile);
 //echo "<hr>";
-//echo $accessToken;
+echo $accessToken;
 ?>
